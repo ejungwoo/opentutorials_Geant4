@@ -4,6 +4,7 @@
 #include "G4UserSteppingAction.hh"
 #include "G4Step.hh"
 #include "globals.hh"
+#include "g4root.hh"
 
 class OTSteppingAction : public G4UserSteppingAction
 {

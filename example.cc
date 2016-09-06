@@ -8,6 +8,8 @@
 #include "QGSP_BERT.hh"
 #include "OTDetectorConstruction.hh"
 #include "OTPrimaryGeneratorAction.hh"
+#include "OTRunAction.hh"
+#include "OTSteppingAction.hh"
 
 int main(int argc, char** argv)
 {
@@ -17,6 +19,8 @@ int main(int argc, char** argv)
   runManager -> SetUserInitialization(physicsList);
   runManager -> SetUserInitialization(new OTDetectorConstruction());
   runManager -> SetUserAction(new OTPrimaryGeneratorAction());
+  runManager -> SetUserAction(new OTRunAction());
+  runManager -> SetUserAction(new OTSteppingAction());
   runManager -> Initialize();
   
   G4VisManager* visManager = new G4VisExecutive;

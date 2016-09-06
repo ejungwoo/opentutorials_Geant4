@@ -4,6 +4,7 @@
 #include "G4UserRunAction.hh"
 #include "G4Run.hh"
 #include "globals.hh"
+#include "g4root.hh"
 
 class OTRunAction : public G4UserRunAction
 {
@@ -12,8 +13,8 @@ class OTRunAction : public G4UserRunAction
     virtual ~OTRunAction();
 
     // method from the base class
-    virtual void BeginOfEventAction(const G4Run* run);
-    virtual void EndOfEventAction(const G4Run* run);
+    virtual void BeginOfRunAction(const G4Run*);
+    virtual void EndOfRunAction(const G4Run*);
 };
 
 #endif
