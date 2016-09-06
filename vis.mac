@@ -1,7 +1,4 @@
-/control/verbose 2
-/control/saveHistory
-/tracking/verbose 2
-/run/verbose 2
+/tracking/verbose 1
 
 /vis/open OGL 600x600-0+0
 /vis/viewer/set/autoRefresh false
@@ -21,8 +18,6 @@
 
 /vis/scene/endOfEventAction accumulate
 
-/vis/scene/add/scale   100 mm
-/vis/scene/add/axes    0 0 0 100 mm 
 /vis/scene/add/eventID
 /vis/scene/add/frame
 /vis/set/colour
