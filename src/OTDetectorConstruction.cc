@@ -73,7 +73,7 @@ G4VPhysicalVolume* OTDetectorConstruction::Construct()
                       "Detector",
                       logicWorld,
                       false,
-                      0,
+                      1,
                       true);
 
   return physWorld;
