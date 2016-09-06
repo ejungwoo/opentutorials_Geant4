@@ -23,7 +23,7 @@ OTPrimaryGeneratorAction::OTPrimaryGeneratorAction()
 
   fParticleGun -> SetParticleDefinition(particle);
   fParticleGun -> SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
-  fParticleGun -> SetParticleEnergy(5.*MeV);
+  fParticleGun -> SetParticleEnergy(40.*MeV);
 }
 
 OTPrimaryGeneratorAction::~OTPrimaryGeneratorAction()
