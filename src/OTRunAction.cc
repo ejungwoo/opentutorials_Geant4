@@ -7,6 +7,7 @@ OTRunAction::OTRunAction()
 
 OTRunAction::~OTRunAction()
 {
+  delete G4AnalysisManager::Instance();
 }
 
 void OTRunAction::BeginOfRunAction(const G4Run*)
