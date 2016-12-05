@@ -1,9 +1,11 @@
 #include "OTSteppingAction.hh"
+#include "OTEventAction.hh"
 
 #include "G4Event.hh"
 #include "G4RunManager.hh"
 #include "G4SystemOfUnits.hh"
-#include "G4RunManager.hh"
+
+#include "G4EventManager.hh"
 
 OTSteppingAction::OTSteppingAction()
 : G4UserSteppingAction()
@@ -25,4 +27,8 @@ void OTSteppingAction::UserSteppingAction(const G4Step* step)
   analysisManager -> FillNtupleIColumn(1, volumeID);
   analysisManager -> FillNtupleDColumn(2, totalEdep);
   analysisManager -> AddNtupleRow();
+
+  OTEventAction *eventAction = (OTEventAction *) G4EventManager::GetEventManager() -> GetUserEventAction();
+  if (volumeID == 1)
+    eventAction -> AddEnergyDeposit1(totalEdep);
 }

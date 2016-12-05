@@ -9,6 +9,7 @@
 #include "OTDetectorConstruction.hh"
 #include "OTPrimaryGeneratorAction.hh"
 #include "OTRunAction.hh"
+#include "OTEventAction.hh"
 #include "OTSteppingAction.hh"
 
 int main(int argc, char** argv)
@@ -20,6 +21,7 @@ int main(int argc, char** argv)
   runManager -> SetUserInitialization(new OTDetectorConstruction());
   runManager -> SetUserAction(new OTPrimaryGeneratorAction());
   runManager -> SetUserAction(new OTRunAction());
+  runManager -> SetUserAction(new OTEventAction());
   runManager -> SetUserAction(new OTSteppingAction());
   runManager -> Initialize();
   
