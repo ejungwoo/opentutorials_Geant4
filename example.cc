@@ -1,28 +1,22 @@
 #include "globals.hh"
 
-#include "G4RunManager.hh"
+#include "G4MTRunManager.hh"
 #include "G4VisExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4UIExecutive.hh"
 
 #include "QGSP_BERT.hh"
 #include "OTDetectorConstruction.hh"
-#include "OTPrimaryGeneratorAction.hh"
-#include "OTRunAction.hh"
-#include "OTEventAction.hh"
-#include "OTSteppingAction.hh"
+#include "OTActionInitialization.hh"
 
 int main(int argc, char** argv)
 {
-  G4RunManager* runManager = new G4RunManager;
+  G4MTRunManager* runManager = new G4MTRunManager;
 
   G4VModularPhysicsList* physicsList = new QGSP_BERT;
   runManager -> SetUserInitialization(physicsList);
   runManager -> SetUserInitialization(new OTDetectorConstruction());
-  runManager -> SetUserAction(new OTPrimaryGeneratorAction());
-  runManager -> SetUserAction(new OTRunAction());
-  runManager -> SetUserAction(new OTEventAction());
-  runManager -> SetUserAction(new OTSteppingAction());
+  runManager -> SetUserInitialization(new OTActionInitialization());
   runManager -> Initialize();
   
   G4VisManager* visManager = new G4VisExecutive;

@@ -6,7 +6,7 @@ project(PROJECT_OT)
 set(useROOT false)
 set(OT_SOURCE_DIRECTORIES src)
 set(OT_EXECUTABLES example)
-set(OT_SCRIPTS vis.mac)
+set(OT_SCRIPTS vis.mac run.mac)
 
 #----------------------------------------------------------------------------
 

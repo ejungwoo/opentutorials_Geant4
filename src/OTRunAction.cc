@@ -12,6 +12,9 @@ OTRunAction::~OTRunAction()
 
 void OTRunAction::BeginOfRunAction(const G4Run*)
 {
+  if (IsMaster())
+    return;
+
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager -> OpenFile("data");
 
@@ -28,6 +31,9 @@ void OTRunAction::BeginOfRunAction(const G4Run*)
 
 void OTRunAction::EndOfRunAction(const G4Run*)
 {
+  if (IsMaster())
+    return;
+
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager -> Write();
   analysisManager -> CloseFile();
