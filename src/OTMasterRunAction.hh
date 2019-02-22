@@ -24,6 +24,8 @@ class OTMasterRunAction : public G4UserRunAction
   private:
     G4ParticleGun* fParticleGun;
     std::ifstream fInputFile;
+    G4int fNumEvents;
+    G4int fNumBeamOn;
 };
 
 #endif

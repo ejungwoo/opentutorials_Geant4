@@ -12,6 +12,9 @@
 
 #include "G4MTRunManager.hh"
 #include "OTMasterRunAction.hh"
+#include "G4AutoLock.hh"
+
+namespace { G4Mutex aMutex = G4MUTEX_INITIALIZER; }
 
 OTPrimaryGeneratorAction::OTPrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction()
@@ -24,7 +27,7 @@ OTPrimaryGeneratorAction::~OTPrimaryGeneratorAction()
 
 void OTPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  //this function is called at the begining of each event
+  G4AutoLock lock(&aMutex);
 
   OTMasterRunAction *runAction = (OTMasterRunAction *) G4MTRunManager::GetMasterRunManager() -> GetUserRunAction();
   runAction -> GeneratePrimaries(anEvent);
