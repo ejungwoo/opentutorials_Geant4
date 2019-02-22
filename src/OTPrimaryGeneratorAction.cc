@@ -11,7 +11,7 @@
 #include "Randomize.hh"
 
 #include "G4MTRunManager.hh"
-#include "OTRunAction.hh"
+#include "OTMasterRunAction.hh"
 
 OTPrimaryGeneratorAction::OTPrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction()
@@ -26,6 +26,6 @@ void OTPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   //this function is called at the begining of each event
 
-  auto runAction = (OTRunAction *) G4MTRunManager::GetMasterRunManager() -> GetUserRunAction();
+  OTMasterRunAction *runAction = (OTMasterRunAction *) G4MTRunManager::GetMasterRunManager() -> GetUserRunAction();
   runAction -> GeneratePrimaries(anEvent);
 }
