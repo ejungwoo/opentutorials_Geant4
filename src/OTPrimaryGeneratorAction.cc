@@ -10,30 +10,22 @@
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
 
+#include "G4MTRunManager.hh"
+#include "OTRunAction.hh"
+
 OTPrimaryGeneratorAction::OTPrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction()
 {
-  G4int n_particle = 1;
-  fParticleGun = new G4ParticleGun(n_particle);
-
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName;
-  G4ParticleDefinition* particle
-    = particleTable -> FindParticle(particleName = "proton");
-
-  fParticleGun -> SetParticleDefinition(particle);
-  fParticleGun -> SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
-  fParticleGun -> SetParticleEnergy(40.*MeV);
 }
 
 OTPrimaryGeneratorAction::~OTPrimaryGeneratorAction()
 {
-  delete fParticleGun;
 }
 
 void OTPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   //this function is called at the begining of each event
 
-  fParticleGun -> GeneratePrimaryVertex(anEvent);
+  auto runAction = (OTRunAction *) G4MTRunManager::GetMasterRunManager() -> GetUserRunAction();
+  runAction -> GeneratePrimaries(anEvent);
 }

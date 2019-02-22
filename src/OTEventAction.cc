@@ -18,6 +18,6 @@ void OTEventAction::EndOfEventAction(const G4Event*)
 {
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
-  analysisManager -> FillNtupleDColumn(1, 0, edep1);
-  analysisManager -> AddNtupleRow(1);
+  analysisManager -> FillNtupleDColumn(0, edep1);
+  analysisManager -> AddNtupleRow();
 }

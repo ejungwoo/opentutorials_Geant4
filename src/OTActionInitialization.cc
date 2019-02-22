@@ -16,7 +16,7 @@ OTActionInitialization::~OTActionInitialization()
 
 void OTActionInitialization::BuildForMaster() const
 {
-  SetUserAction(new OTRunAction);
+  SetUserAction(new OTRunAction("../primaries.gen"));
 }
 
 void OTActionInitialization::Build() const

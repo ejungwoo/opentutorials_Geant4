@@ -12,6 +12,7 @@
 int main(int argc, char** argv)
 {
   G4MTRunManager* runManager = new G4MTRunManager;
+  runManager -> SetNumberOfThreads(4);
 
   G4VModularPhysicsList* physicsList = new QGSP_BERT;
   runManager -> SetUserInitialization(physicsList);
