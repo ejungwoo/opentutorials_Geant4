@@ -10,11 +10,15 @@ class OTRunAction : public G4UserRunAction
 {
   public:
     OTRunAction();
+    OTRunAction(const char *);
     virtual ~OTRunAction();
 
     // method from the base class
     virtual void BeginOfRunAction(const G4Run*);
     virtual void EndOfRunAction(const G4Run*);
+
+  private:
+    G4String fName;
 };
 
 #endif

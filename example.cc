@@ -20,7 +20,11 @@ int main(int argc, char** argv)
   runManager -> SetUserInitialization(physicsList);
   runManager -> SetUserInitialization(new OTDetectorConstruction());
   runManager -> SetUserAction(new OTPrimaryGeneratorAction());
-  runManager -> SetUserAction(new OTRunAction());
+  if (argc != 1)
+    runManager -> SetUserAction(new OTRunAction(argv[1]));
+  else
+    runManager -> SetUserAction(new OTRunAction());
+
   runManager -> SetUserAction(new OTEventAction());
   runManager -> SetUserAction(new OTSteppingAction());
   runManager -> Initialize();

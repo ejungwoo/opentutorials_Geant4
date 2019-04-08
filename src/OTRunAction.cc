@@ -3,6 +3,13 @@
 OTRunAction::OTRunAction()
 : G4UserRunAction()
 {
+  fName = "data";
+}
+
+OTRunAction::OTRunAction(const char *name)
+: G4UserRunAction()
+{
+  fName = name;
 }
 
 OTRunAction::~OTRunAction()
@@ -13,7 +20,7 @@ OTRunAction::~OTRunAction()
 void OTRunAction::BeginOfRunAction(const G4Run*)
 {
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  analysisManager -> OpenFile("data");
+  analysisManager -> OpenFile(fName);
 
   analysisManager -> CreateNtuple("step", "step");
   analysisManager -> CreateNtupleIColumn("eventID");
