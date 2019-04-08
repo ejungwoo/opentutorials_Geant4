@@ -1,1 +1,23 @@
-/run/beamOn 1
+/gps/position  0 0 0
+/gps/direction 0 0 1
+/gps/particle  e-
+/gps/energy    10 MeV
+/run/beamOn    2
+
+/gps/position  0 0 0
+/gps/direction 0 0 1
+/gps/particle  neutron
+/gps/energy    50 MeV
+/run/beamOn    5
+
+/gps/position  0 0 0
+/gps/direction 0 0 1
+/gps/particle  proton
+/gps/energy    20 MeV
+/run/beamOn    10
+
+/gps/position  0 0 0
+/gps/direction 0 0 1
+/gps/particle  gamma
+/gps/energy    1 MeV
+/run/beamOn    2
