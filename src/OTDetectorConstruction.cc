@@ -13,10 +13,13 @@
 #include "G4TransportationManager.hh"
 #include "G4FieldManager.hh"
 
+#include "OTDCMessenger.hh"
+
 OTDetectorConstruction::OTDetectorConstruction()
 : G4VUserDetectorConstruction()
 {
   fField = new OTField();
+  new OTDCMessenger(this, fField);
 }
 
 OTDetectorConstruction::~OTDetectorConstruction()
@@ -59,8 +62,6 @@ G4VPhysicalVolume* OTDetectorConstruction::Construct()
   logic_detector -> SetVisAttributes(visat_detector);
 
 
-  SetGlobalField();
-  //SetLocalField();
 
 
   return physi_world;

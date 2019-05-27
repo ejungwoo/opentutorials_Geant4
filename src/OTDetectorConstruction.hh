@@ -21,7 +21,6 @@ class OTDetectorConstruction : public G4VUserDetectorConstruction
 
   private:
     OTField *fField;
-
     G4LogicalVolume *logic_detector;
 };
 

@@ -34,6 +34,11 @@
 # draw all events when multiple events are simulated at once
 /vis/scene/endOfEventAction accumulate
 
+#field setting from OTDCMessenger
+/ot/field/option global
+#/ot/field/option local
+/ot/field/value 0 0 1 tesla
+
 # general particle source setting
 /gps/position  0 1000 0 mm
 /gps/direction 1 0 0
