@@ -5,6 +5,7 @@
 #include "G4UIcommand.hh"
 #include "G4UIcmdWithAString.hh"
 #include "G4UIcmdWith3VectorAndUnit.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
 #include "OTDetectorConstruction.hh"
 #include "OTField.hh"
 
@@ -22,6 +23,7 @@ class OTDCMessenger : public G4UImessenger
 
     G4UIcmdWithAString *fCmdSetFieldOption;
     G4UIcmdWith3VectorAndUnit *fCmdSetFieldValue;
+    G4UIcmdWithADoubleAndUnit *fCmdSetDetectorRMax;
 };
 
 #endif

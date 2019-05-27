@@ -17,7 +17,7 @@ int main(int argc, char** argv)
   runManager -> SetUserInitialization(physicsList);
   runManager -> SetUserInitialization(new OTDetectorConstruction());
   runManager -> SetUserAction(new OTPrimaryGeneratorAction());
-  runManager -> Initialize();
+  //runManager -> Initialize();
   
   G4VisManager* visManager = new G4VisExecutive;
   visManager -> Initialize();

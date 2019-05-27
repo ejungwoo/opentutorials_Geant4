@@ -44,7 +44,6 @@ G4VPhysicalVolume* OTDetectorConstruction::Construct()
 
   // Detector
   G4double detector_rMin = 500*mm;
-  G4double detector_rMax = 1500*mm;
   G4double detector_height = 500*mm;
   auto solid_detector = new G4Tubs("Detector", detector_rMin, detector_rMax, detector_height/2., 0, 2*CLHEP::pi);
   logic_detector = new G4LogicalVolume(solid_detector, vacuum, "Detector");

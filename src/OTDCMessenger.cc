@@ -7,7 +7,15 @@ OTDCMessenger::OTDCMessenger(OTDetectorConstruction *dc, OTField *field)
   fField = field;
 
   fCmdSetFieldOption = new G4UIcmdWithAString("/ot/field/option", this);
+  fCmdSetFieldOption -> SetCandidates("global local");
+  fCmdSetFieldOption -> SetGuidance("Set field option");
+  fCmdSetFieldOption -> SetGuidance("global: set global field");
+  fCmdSetFieldOption -> SetGuidance("local: set local field for the detector");
+
   fCmdSetFieldValue = new G4UIcmdWith3VectorAndUnit("/ot/field/value", this);
+
+  fCmdSetDetectorRMax = new G4UIcmdWithADoubleAndUnit("/ot/detector/rmax", this);
+  fCmdSetDetectorRMax -> AvailableForStates(G4State_PreInit);
 }
 
 OTDCMessenger::~OTDCMessenger()
@@ -25,5 +33,8 @@ void OTDCMessenger::SetNewValue(G4UIcommand *command, G4String value)
   }
   else if (command == fCmdSetFieldValue) {
     fField -> SetFieldValue(fCmdSetFieldValue -> GetNew3VectorValue(value));
+  }
+  else if (command == fCmdSetDetectorRMax ) {
+    fDetectorConstruction -> SetDetectorRMax(fCmdSetDetectorRMax  -> GetNewDoubleValue(value));
   }
 }

@@ -1,3 +1,6 @@
+/ot/detector/rmax 2000 mm
+/run/initialize
+
 # create viewer draw volumes
 /vis/open OGL 600x600-0+0
 /vis/drawVolume

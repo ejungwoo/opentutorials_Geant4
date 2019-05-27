@@ -16,12 +16,15 @@ class OTDetectorConstruction : public G4VUserDetectorConstruction
 
     virtual G4VPhysicalVolume* Construct();
 
+    void SetDetectorRMax(G4double rmax) { detector_rMax = rmax; }
+
     void SetGlobalField();
     void SetLocalField();
 
   private:
     OTField *fField;
     G4LogicalVolume *logic_detector;
+    G4double detector_rMax = 1500*mm;
 };
 
 #endif
