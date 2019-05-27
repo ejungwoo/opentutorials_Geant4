@@ -7,6 +7,10 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 
+#include "G4Tubs.hh"
+#include "G4VisAttributes.hh"
+#include "G4Colour.hh"
+
 OTDetectorConstruction::OTDetectorConstruction()
 : G4VUserDetectorConstruction()
 {
@@ -17,64 +21,40 @@ OTDetectorConstruction::~OTDetectorConstruction()
 }
 
 G4VPhysicalVolume* OTDetectorConstruction::Construct()
-{  
+{
+  // Material
   G4NistManager* nist = G4NistManager::Instance();
+  auto air = nist -> FindOrBuildMaterial("G4_AIR");
+  auto vacuum = new G4Material("vacuum", 1.e-15*g/cm3, 1);
+  vacuum -> AddMaterial(air, 1);
 
 
-  // -----------------------------------------------------
   // World
-
-  G4Material* world_mat = nist -> FindOrBuildMaterial("G4_AIR");
-  G4double world_size = 100*mm;
-
-  G4Box* solidWorld =    
-    new G4Box("World",                       // its name
-              0.5*world_size,                // half x
-              0.5*world_size,                // half y
-              0.5*world_size);               // half z
-      
-  G4LogicalVolume* logicWorld =                         
-    new G4LogicalVolume(solidWorld,          //its solid
-                        world_mat,           //its material
-                        "World");            //its name
-                                   
-  G4VPhysicalVolume* physWorld = 
-    new G4PVPlacement(0,                     //no rotation
-                      G4ThreeVector(),       //at (0,0,0)
-                      logicWorld,            //its logical volume
-                      "World",               //its name
-                      0,                     //its mother  volume
-                      false,                 //no boolean operation
-                      0,                     //copy number
-                      true);                 //overlaps checking
+  G4double world_size = 5000*mm;
+  auto solid_world = new G4Box("World", 0.5*world_size, 0.5*world_size, 0.5*world_size);
+  auto logic_world = new G4LogicalVolume(solid_world, air, "World");
+  auto physi_world = new G4PVPlacement(0, G4ThreeVector(), logic_world, "World", 0, false, 0, true);
 
 
-  // -----------------------------------------------------
   // Detector
+  G4double detector_rMin = 500*mm;
+  G4double detector_rMax = 1500*mm;
+  G4double detector_height = 500*mm;
+  auto solid_detector = new G4Tubs("Detector", detector_rMin, detector_rMax, detector_height/2., 0, 2*CLHEP::pi);
+  auto logic_detector = new G4LogicalVolume(solid_detector, vacuum, "Detector");
+  new G4PVPlacement(0, G4ThreeVector(), logic_detector, "Detector", logic_world, false, 1, true);
 
-  G4Material* detector_mat = nist -> FindOrBuildMaterial("G4_WATER");
-  G4double detector_size = 20*mm;
-  G4double detector_offset_z = 30*mm;
 
-  G4Box* solidDetector =    
-    new G4Box("Detector",
-              0.5*detector_size,
-              0.5*detector_size,
-              0.5*detector_size);
-      
-  G4LogicalVolume* logicDetector =                         
-    new G4LogicalVolume(solidDetector,
-                        detector_mat,
-                        "Detector");
-                                   
-    new G4PVPlacement(0,
-                      G4ThreeVector(0,0,detector_offset_z),
-                      logicDetector,
-                      "Detector",
-                      logicWorld,
-                      false,
-                      1,
-                      true);
+  // Visualization Attribute
+  auto visat_world = new G4VisAttributes();
+  visat_world -> SetColor(G4Colour::Green());
+  visat_world -> SetForceWireframe(true);
+  logic_world -> SetVisAttributes(visat_world);
 
-  return physWorld;
+  auto visat_detector = new G4VisAttributes();
+  visat_detector -> SetColor(G4Colour(0.8,0.8,0.8,0.3));
+  logic_detector -> SetVisAttributes(visat_detector);
+
+
+  return physi_world;
 }
