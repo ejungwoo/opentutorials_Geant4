@@ -3,7 +3,6 @@
 #include "G4RunManager.hh"
 #include "G4NistManager.hh"
 #include "G4Box.hh"
-#include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 
@@ -11,9 +10,13 @@
 #include "G4VisAttributes.hh"
 #include "G4Colour.hh"
 
+#include "G4TransportationManager.hh"
+#include "G4FieldManager.hh"
+
 OTDetectorConstruction::OTDetectorConstruction()
 : G4VUserDetectorConstruction()
 {
+  fField = new OTField();
 }
 
 OTDetectorConstruction::~OTDetectorConstruction()
@@ -41,7 +44,7 @@ G4VPhysicalVolume* OTDetectorConstruction::Construct()
   G4double detector_rMax = 1500*mm;
   G4double detector_height = 500*mm;
   auto solid_detector = new G4Tubs("Detector", detector_rMin, detector_rMax, detector_height/2., 0, 2*CLHEP::pi);
-  auto logic_detector = new G4LogicalVolume(solid_detector, vacuum, "Detector");
+  logic_detector = new G4LogicalVolume(solid_detector, vacuum, "Detector");
   new G4PVPlacement(0, G4ThreeVector(), logic_detector, "Detector", logic_world, false, 1, true);
 
 
@@ -56,5 +59,24 @@ G4VPhysicalVolume* OTDetectorConstruction::Construct()
   logic_detector -> SetVisAttributes(visat_detector);
 
 
+  SetGlobalField();
+  //SetLocalField();
+
+
   return physi_world;
+}
+
+void OTDetectorConstruction::SetGlobalField()
+{
+  auto fieldManager = G4TransportationManager::GetTransportationManager() -> GetFieldManager();
+  fieldManager -> SetDetectorField(fField);
+  fieldManager -> CreateChordFinder((G4MagneticField *) fField);
+}
+
+void OTDetectorConstruction::SetLocalField()
+{
+  auto fieldManager = new G4FieldManager();
+  fieldManager -> SetDetectorField(fField);
+  fieldManager -> CreateChordFinder((G4MagneticField *) fField);
+  logic_detector -> SetFieldManager(fieldManager, true);
 }
